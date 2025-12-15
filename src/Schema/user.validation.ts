@@ -12,6 +12,17 @@ export  const usersValiadtion =Joi.object({
     role:Joi.string().required().messages({
 
     }),
-    attendance:Joi.string().required().
+    attendance:Joi.string().required().messages({
+        "required":"must be required",
+          "String":"must select any option"
+    }),
+    leave:Joi.string().required().messages({
+        "String":"must select any option",
+        "required":"must required"
+    }),
+    password:Joi.string().required().messages({
+     "string":"at least anu character",
+     "required":"can not be null"   
+    })
 
 })

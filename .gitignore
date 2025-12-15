@@ -20,3 +20,6 @@ Thumbs.db         # Windows
 
 # npm package lock file
 package-lock.json
+
+# TypeScript configuration file
+tsconfig.json

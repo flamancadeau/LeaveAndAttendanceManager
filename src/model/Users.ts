@@ -1,4 +1,3 @@
-
 import {Schema,model,Document} from "mongoose";
 
 
@@ -6,9 +5,9 @@ interface UsersI extends Document{
     name:string,
     email:string,
     password:string,
-    role:"admin"|"student",
-    attendance:Schema.Types.ObjectId,
-    leave:Schema.Types.ObjectId,
+    role:"admin"|"student"|"teacher",
+    attendance?: string,
+    leave?: string,
 }
 
 const UserSchema=new Schema<UsersI>({
@@ -24,21 +23,30 @@ const UserSchema=new Schema<UsersI>({
     },
     role:{
         type:String,
-        enum:["admin","present"],
+        enum:["admin","student","teacher"],
         required:true,
+        default: "student",
     },
     attendance:{
-        type:Schema.ObjectId,ref:'Attendance',
-        required:true,
+        type:String,
+        required:false,
+        default: "",
     },
     leave:{
-   type:Schema.ObjectId,ref:'Leave'
+        type:String,
+        required:false,
+        default: ""
     },
+    password:{
+        type:String,
+        required:true,
+
+    }
     
 
 },{timestamps:true},);
 
 
-const userModel= model<UsersI>("users",UserSchema);
+const userModel= model<UsersI>("User",UserSchema);
 
 export default userModel;
