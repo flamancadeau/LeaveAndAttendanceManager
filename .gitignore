@@ -1,0 +1,22 @@
+# Node.js dependencies
+node_modules/
+
+# TypeScript build output
+/dist/
+
+# Logs
+*.log
+
+# Debug and VSCode specific files
+.vscode/
+.idea/
+
+# Operating System-specific files
+.DS_Store         # macOS
+Thumbs.db         # Windows
+
+# Environment variables
+.env
+
+# npm package lock file
+package-lock.json
