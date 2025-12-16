@@ -1,6 +1,6 @@
 import Joi from "joi";
 
-export  const attendanceValiadtion =Joi.object({
+export  const attendanceValidation =Joi.object({
     user:Joi.string().min(3).required().messages({
        "string":"at least three character",
        "required":"required", 

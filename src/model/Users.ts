@@ -1,4 +1,4 @@
-import {Schema,model,Document} from "mongoose";
+import mongoose, {Schema,model,Document, mongo, Mongoose} from "mongoose";
 
 
 interface UsersI extends Document{
@@ -6,8 +6,8 @@ interface UsersI extends Document{
     email:string,
     password:string,
     role:"admin"|"student"|"teacher",
-    attendance?: string,
-    leave?: string,
+    attendance?: mongoose.Types.ObjectId[],
+    leave?: mongoose.Types.ObjectId[],
 }
 
 const UserSchema=new Schema<UsersI>({
@@ -27,16 +27,16 @@ const UserSchema=new Schema<UsersI>({
         required:true,
         default: "student",
     },
-    attendance:{
-        type:String,
-        required:false,
-        default: "",
-    },
-    leave:{
-        type:String,
-        required:false,
-        default: ""
-    },
+    attendance:[{
+        type: mongoose.Schema.Types.ObjectId,
+        ref:"Attendance"
+    }],
+    leave:[
+        {
+        type: mongoose.Schema.Types.ObjectId,
+        ref:"Leave",
+        }
+],
     password:{
         type:String,
         required:true,

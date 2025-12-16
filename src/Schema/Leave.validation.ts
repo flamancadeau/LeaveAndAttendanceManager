@@ -1,12 +1,12 @@
 import Joi from "joi";
 
-export  const usersValiadtion =Joi.object({
+export  const LeaveValidation =Joi.object({
     user:Joi.string().min(3).required().messages({
        "string":"at least three character",
        "required":"required", 
     }),
   
- stutus:Joi.string().required().messages({
+ status:Joi.string().required().messages({
 
     }),
     Startdate:Joi.string().required().messages({
@@ -16,6 +16,10 @@ export  const usersValiadtion =Joi.object({
     Enddate:Joi.string().required().messages({
         "String":"must select any date",
         "required":"must required"
+    }),
+    reason:Joi.string().required().messages({
+        "string":"must be charatcter",
+        "required":"must be filled"
     })
 
 })

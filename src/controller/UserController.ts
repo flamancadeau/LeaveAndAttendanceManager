@@ -1,21 +1,26 @@
-import { Request,Response } from "express";
-import { CreateUser, GetUsers, GetUserById, UpdateUserById, DeleteUserById } from "../service/ServiceUsers.js";
-import { usersValiadtion } from "../Schema/user.validation.js";
+import type { Request,Response } from "express";
+import { CreateUser, GetUsers, GetUserById, UpdateUserById, DeleteUserById } from "../service/ServiceUsers.ts";
+import { usersValiadtion } from "../Schema/user.validation.ts";
 
 export const createUserController = async (req: Request, res: Response) => {
+ 
   const { error } = usersValiadtion.validate(req.body);  
   if (error) {    
     return res.status(400).json({ message: error.details[0].message });
   }
 
   try {
-    const newUser = await CreateUser(req.body);
+   
+    const { savedUser, token } = await CreateUser(req.body);
+    
     
     return res.status(201).json({
       message: "User created successfully",
-      user: newUser
+      user: savedUser,
+      token: token 
     });
   } catch (err: any) {
+
     return res.status(500).json({ message: err.message });
   }
 };
@@ -40,7 +45,7 @@ export const getUserController = async (req: Request, res: Response) => {
 };
 
 export const updateUserController = async (req: Request, res: Response) => {
-  // optional: validate update payload with a separate schema
+
   try {
     const updated = await UpdateUserById(req.params.id, req.body);
     if (!updated) return res.status(404).json({ message: "User not found" });

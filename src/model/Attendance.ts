@@ -10,12 +10,13 @@ interface AttendanceI extends Document {
 const AttendanceSchema=new Schema<AttendanceI>({
     user:{
         type:Schema.ObjectId,
-        ref:'user',
+        ref:'Users',
         required:true,
     },
     status:{
+        type:String,
         enum:["present","absent"],
-        requiered:true,
+        required: true,
 
     },
     date:{
@@ -25,5 +26,5 @@ const AttendanceSchema=new Schema<AttendanceI>({
 
 },{timestamps:true},);
 
-const AttendanceModel= model<AttendanceI>("Attendance");
+const AttendanceModel= model<AttendanceI>("Attendance",AttendanceSchema);
 export default AttendanceModel;

@@ -5,14 +5,14 @@ import {
   getUserController,
   updateUserController,
   deleteUserController
-} from "../controller/UserController.js";
+} from "../controller/UserController.ts";
 
-const router = express.Router();
+const userRouter= express.Router();
 
-router.post("/users", createUserController);
-router.get("/users", getAllUsersController);
-router.get("/users/:id", getUserController);
-router.put("/users/:id", updateUserController);
-router.delete("/users/:id", deleteUserController);
+userRouter.post("/users", createUserController);
+userRouter.get("/users", getAllUsersController);
+userRouter.get("/users/:id", getUserController);
+userRouter.put("/users/:id", updateUserController);
+userRouter.delete("/users/:id", deleteUserController);
 
-export default router;
+export default userRouter;

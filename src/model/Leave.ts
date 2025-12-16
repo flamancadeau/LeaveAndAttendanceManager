@@ -3,7 +3,7 @@ import {Schema,model,Document} from "mongoose";
 
 
 interface LeaveI extends Document {
-    user:Schema.Types.ObjectId,
+    user?:Schema.Types.ObjectId,
     status:"Approved"|"Denied",
     reason:string,
     Startdate:Date,
@@ -29,8 +29,13 @@ Startdate:{
 type:Date,
 required:true
  },
+ reason:{
+    type:String,
+    required:true
+
+ },
 },{timestamps:true},
 );
 
-const LeaveModel= model<LeaveI>("leave",LeaveSchema);
+const LeaveModel= model<LeaveI>("Leave",LeaveSchema);
 export default LeaveModel;

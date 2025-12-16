@@ -3,15 +3,15 @@ import type { Request, Response } from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 import cors from "cors";
-import userRoutes from "./Router/userRoutes.js";
-
+import {userRouter,AttendeRouter,LeaveRouter} from "./Router/IndexRouter.ts"
+import bodyParser from "body-parser";
 
 const App = express();
 App.use(cors());
 dotenv.config(); 
 App.use(express.json());
 
-
+App.use(bodyParser.json());
 
 
 const connectDb = async () => {
@@ -30,7 +30,9 @@ const connectDb = async () => {
 }
 connectDb();
 
-App.use("/api", userRoutes); 
+App.use("/api", userRouter); 
+App.use("/api", AttendeRouter); 
+App.use("/api",LeaveRouter);
 
 const PORT = process.env.PORT || 3000;
 
