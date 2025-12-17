@@ -1,12 +1,8 @@
 import Joi from "joi";
 
 export  const LeaveValidation =Joi.object({
-    user:Joi.string().min(3).required().messages({
-       "string":"at least three character",
-       "required":"required", 
-    }),
-  
- status:Joi.string().required().messages({
+
+ status:Joi.string().optional().messages({
 
     }),
     Startdate:Joi.string().required().messages({

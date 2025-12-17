@@ -4,13 +4,17 @@ import {
   getAllUsersController,
   getUserController,
   updateUserController,
-  deleteUserController
+  deleteUserController,
+  loginUserController
+
 } from "../controller/UserController.ts";
+import  { verifyAdminRole } from "../middleware/verifyAdminRole.ts";
 
 const userRouter= express.Router();
 
 userRouter.post("/users", createUserController);
-userRouter.get("/users", getAllUsersController);
+userRouter.post("/login", loginUserController);
+userRouter.get("/users", verifyAdminRole , getAllUsersController);
 userRouter.get("/users/:id", getUserController);
 userRouter.put("/users/:id", updateUserController);
 userRouter.delete("/users/:id", deleteUserController);

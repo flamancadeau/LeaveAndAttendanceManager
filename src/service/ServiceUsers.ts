@@ -8,6 +8,14 @@ const hashPassword = async (password: string) => {
 
 const CreateUser = async (data: any) => {
   try {
+    const existingUser = await users.findOne({ email: data.email });
+
+    if (existingUser) {
+      throw new Error(
+        `The email address ${data.email} is already in use. Please use a different email.`
+      );
+    }
+
     const hashedPassword = await hashPassword(data.password);
 
     const newUser = new users({
@@ -19,8 +27,7 @@ const CreateUser = async (data: any) => {
 
     const token = jwt.sign(
       { userId: savedUser._id, email: savedUser.email, role: savedUser.role },
-      process.env.JWT_SECRET || "jfn437cy5478yrng234yxgrtg3qmfyzyh54f",
-      { expiresIn: "1h" }
+      process.env.JWT_SECRET || "jfn437cy5478yrng234yxgrtg3qmfyzyh54f"
     );
 
     return { savedUser, token };
@@ -30,6 +37,37 @@ const CreateUser = async (data: any) => {
       throw new Error(`Failed to create user: ${error.message}`);
     }
     throw new Error("Failed to create user");
+  }
+};
+
+const loginUser = async (email: string, password: string) => {
+  try {
+    const existingUser = await users.findOne({ email });
+
+
+    if (!existingUser) {
+      throw new Error("Invalid email or password");
+    }
+
+    const isMatch = await bcrypt.compare(password, existingUser.password);
+
+    if (!isMatch) {
+      throw new Error("Invalid email or password");
+    }
+
+    const token = jwt.sign(
+      {
+        userId: existingUser._id,
+        email: existingUser.email,
+        role: existingUser.role,
+      },
+      process.env.JWT_SECRET || "jfn437cy5478yrng234yxgrtg3qmfyzyh54f"
+    );
+
+    return { user: existingUser, token };
+  } catch (error: any) {
+    console.error("Detailed error:", error);
+    throw new Error(`Login failed: ${error.message}`);
   }
 };
 
@@ -69,4 +107,11 @@ const DeleteUserById = async (id: string) => {
   }
 };
 
-export { CreateUser, GetUsers, GetUserById, UpdateUserById, DeleteUserById };
+export {
+  CreateUser,
+  loginUser,
+  GetUsers,
+  GetUserById,
+  UpdateUserById,
+  DeleteUserById,
+};

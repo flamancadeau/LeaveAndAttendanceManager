@@ -2,8 +2,8 @@ import {Schema,model,Document} from "mongoose";
 
 
 interface AttendanceI extends Document {
-    user:Schema.Types.ObjectId,
-    status:"present"|"absent",
+    user?:Schema.Types.ObjectId,
+    status:"present"|"absent"|"late"|"excuse",
     date:Date,
 }
 
@@ -15,7 +15,7 @@ const AttendanceSchema=new Schema<AttendanceI>({
     },
     status:{
         type:String,
-        enum:["present","absent"],
+        enum:["present","absent","late","excuse"],
         required: true,
 
     },

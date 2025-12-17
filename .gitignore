@@ -23,3 +23,7 @@ package-lock.json
 
 # TypeScript configuration file
 tsconfig.json
+
+#Uploads
+
+/uploads/

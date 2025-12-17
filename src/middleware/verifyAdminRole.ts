@@ -9,7 +9,7 @@ const verifyAdminRole = (req: Request, res: Response, next: NextFunction) => {
   }
 
   try {
-    const decoded: any = jwt.verify(token, process.env.JWT_SECRET || 'your-secret-key');
+    const decoded: any = jwt.verify(token, process.env.JWT_SECRET || 'CyJdge1PlGoqyV7iUdUqVkA8oLI');
     
     if (decoded.role !== "admin") {
       return res.status(403).json({ message: "Access forbidden: Admins only" });

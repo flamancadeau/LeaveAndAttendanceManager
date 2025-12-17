@@ -4,10 +4,11 @@ import {Schema,model,Document} from "mongoose";
 
 interface LeaveI extends Document {
     user?:Schema.Types.ObjectId,
-    status:"Approved"|"Denied",
+    status:"Approved"|"Denied"|"pending",
     reason:string,
     Startdate:Date,
-    Enddate:Date
+    Enddate:Date,
+    file?:string,
     }
 
 
@@ -18,8 +19,9 @@ user:{
 },
 status:{
     type:String,
-    enum:["Approved","Denied"],
+    enum:["Approved","Denied","pending"],
     required:true,
+    default:"pending",
 },
 Startdate:{
     type:Date,
@@ -33,6 +35,9 @@ required:true
     type:String,
     required:true
 
+ },
+ file:{
+ type:String
  },
 },{timestamps:true},
 );
